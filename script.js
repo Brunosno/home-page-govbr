@@ -26,12 +26,26 @@ function showSlide(groupIndex) {
   });
 }
 
+function currentDots(groupIndex){
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === groupIndex);
+  });
+}
+
 function currentSlide(groupIndex) {
   showSlide(groupIndex);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   showSlide(0);
+
+  const cards = document.querySelectorAll('.cards-container .card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
 });
 
 function mudarSlide(dot, index) {
@@ -46,4 +60,15 @@ function mudarSlide(dot, index) {
   dots.forEach((d, i) => {
     d.classList.toggle('active', i === index);
   });
+}
+
+function scrollStories(direction) {
+  const container = document.getElementById('storiesContainer');
+  const scrollAmount = 150;
+
+  if (direction === 'left') {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  } else {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
 }
